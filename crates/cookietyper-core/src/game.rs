@@ -1,6 +1,7 @@
 use crate::facilities::Facilities;
 
-struct Game {
+/// The main game state structure
+pub struct Game {
     cpt: i128,
     current_cookies: u128,
     facilities: Facilities,

@@ -1,3 +1,5 @@
+use cookietyper_core::Game;
+
 fn main() {
-    println!("Hello, world!");
+    let game = Game::default();
 }
