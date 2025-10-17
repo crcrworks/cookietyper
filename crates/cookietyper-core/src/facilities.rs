@@ -3,7 +3,18 @@ use std::collections::HashMap;
 use crate::facilities::cursor::Cursor;
 pub(crate) mod cursor;
 
-pub(crate) trait Facility {
+pub(crate) trait Facility: 'static {
+    fn key() -> FacilityKey
+    where
+        Self: Sized;
+
+    fn entry() -> (FacilityKey, Box<dyn Facility>)
+    where
+        Self: Default,
+    {
+        (Self::key(), Box::new(Self::default()))
+    }
+
     fn on_purchase(&self) {}
     fn on_sell(&self) {}
     fn on_tick(&self, current_cookies: &mut u128) {}
@@ -34,10 +45,7 @@ impl Facilities {
 
 impl Default for Facilities {
     fn default() -> Self {
-        let facilities: [(FacilityKey, Box<dyn Facility>); _] =
-            [(FacilityKey::Cursor, Box::new(Cursor::default()))];
-
-        Self(HashMap::from(facilities))
+        Self(HashMap::from([Cursor::entry()]))
     }
 }
 

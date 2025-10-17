@@ -1,4 +1,4 @@
-use crate::facilities::{Facility, FacilityVisualState};
+use crate::facilities::{Facility, FacilityKey, FacilityVisualState};
 
 pub(crate) struct Cursor {
     amount: u32,
@@ -19,6 +19,10 @@ impl Default for Cursor {
 }
 
 impl Facility for Cursor {
+    fn key() -> FacilityKey {
+        FacilityKey::Cursor
+    }
+
     fn visual_state(&self) -> FacilityVisualState {
         FacilityVisualState::Displayed
     }
