@@ -1,5 +1,3 @@
-use bnum::{cast::CastFrom as _, types::I512};
-
 use crate::facilities::{Facility, FacilityKey, FacilityVisualState};
 
 pub(crate) struct Grandma {
@@ -16,10 +14,6 @@ impl Default for Grandma {
     }
 }
 
-impl Grandma {
-    const BASE_CPS: f64 = 1.0;
-}
-
 impl Facility for Grandma {
     fn key() -> FacilityKey {
         FacilityKey::Grandma
@@ -33,12 +27,15 @@ impl Facility for Grandma {
         self.amount
     }
 
+    fn multiplier(&self) -> f64 {
+        self.multiplier
+    }
+
     fn base_cost(&self) -> bnum::types::U512 {
         100u32.into()
     }
 
-    fn cps(&self) -> I512 {
-        let cps = Grandma::BASE_CPS * self.multiplier;
-        I512::cast_from(cps)
+    fn base_cps(&self) -> f64 {
+        1.0
     }
 }

@@ -1,17 +1,10 @@
-use bnum::{
-    cast::CastFrom as _,
-    types::{I512, U512},
-};
+use bnum::types::U512;
 
 use crate::facilities::{Facility, FacilityKey, FacilityVisualState};
 
 pub(crate) struct Cursor {
     amount: u32,
     multiplier: f64,
-}
-
-impl Cursor {
-    const BASE_CPS: f64 = 0.1;
 }
 
 impl Default for Cursor {
@@ -36,12 +29,15 @@ impl Facility for Cursor {
         self.amount
     }
 
+    fn multiplier(&self) -> f64 {
+        self.multiplier
+    }
+
     fn base_cost(&self) -> U512 {
         15u32.into()
     }
 
-    fn cps(&self) -> I512 {
-        let cps = Cursor::BASE_CPS * self.multiplier;
-        I512::cast_from(cps)
+    fn base_cps(&self) -> f64 {
+        0.1
     }
 }
