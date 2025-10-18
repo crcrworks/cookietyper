@@ -1,30 +1,9 @@
+use cookietyper_core::Game;
 use std::{io::stdin, thread};
 
-use cookietyper_core::Game;
+mod event;
 
-enum Event {
-    EarnCookies(i32),
-    ShowCookiesAmount,
-    ShowCps,
-    InvalidCommand,
-}
-
-impl From<String> for Event {
-    fn from(s: String) -> Self {
-        let s = s.trim();
-
-        if !s.starts_with("/") {
-            let s_num = s.len();
-            return Event::EarnCookies(s_num as i32);
-        }
-
-        match s {
-            "/cc" => Event::ShowCookiesAmount,
-            "/cps" => Event::ShowCps,
-            _ => Event::InvalidCommand,
-        }
-    }
-}
+use crate::event::Event;
 
 fn main() {
     let mut game = Game::default();
