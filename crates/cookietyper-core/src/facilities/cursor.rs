@@ -1,4 +1,6 @@
-use crate::facilities::{Facility, FacilityVisualState};
+use bnum::types::U512;
+
+use crate::facilities::{Facility, FacilityKey, FacilityVisualState};
 
 pub(crate) struct Cursor {
     amount: u32,
@@ -19,6 +21,10 @@ impl Default for Cursor {
 }
 
 impl Facility for Cursor {
+    fn key() -> FacilityKey {
+        FacilityKey::Cursor
+    }
+
     fn visual_state(&self) -> FacilityVisualState {
         FacilityVisualState::Displayed
     }
@@ -27,7 +33,7 @@ impl Facility for Cursor {
         self.amount
     }
 
-    fn base_cost(&self) -> u128 {
-        15
+    fn base_cost(&self) -> U512 {
+        15u32.into()
     }
 }
