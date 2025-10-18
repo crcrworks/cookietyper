@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 cookietyper-core = { path = "../cookietyper-core" }
+flume = "0.11.1"

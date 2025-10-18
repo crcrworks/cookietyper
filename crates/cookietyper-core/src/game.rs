@@ -15,7 +15,8 @@ pub struct Game {
 }
 
 impl Game {
-    fn update(&mut self) {
+    /// update game tick by tick
+    pub fn update(&mut self) {
         let facilities = self.facilities.displayed();
 
         for facility in facilities {
@@ -23,9 +24,14 @@ impl Game {
         }
     }
 
-    fn earn_cookies(&mut self) {
+    /// earn cookies by calculating base cps and several multipliers
+    pub fn earn_cookies(&mut self) {
         let right = self.cpt.as_::<f64>() * self.cpt_multiplier;
         self.current_cookies += U512::cast_from(right);
+    }
+
+    pub fn current_cookies(&self) -> U512 {
+        self.current_cookies
     }
 }
 
