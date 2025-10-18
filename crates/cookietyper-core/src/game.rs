@@ -33,6 +33,10 @@ impl Game {
     pub fn current_cookies(&self) -> U512 {
         self.current_cookies
     }
+
+    pub fn cps(&self) -> I512 {
+        self.facilities.total_cps()
+    }
 }
 
 impl Default for Game {

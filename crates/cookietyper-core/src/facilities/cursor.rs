@@ -1,4 +1,7 @@
-use bnum::types::U512;
+use bnum::{
+    cast::CastFrom as _,
+    types::{I512, U512},
+};
 
 use crate::facilities::{Facility, FacilityKey, FacilityVisualState};
 
@@ -35,5 +38,10 @@ impl Facility for Cursor {
 
     fn base_cost(&self) -> U512 {
         15u32.into()
+    }
+
+    fn cps(&self) -> I512 {
+        let cps = Cursor::BASE_CPS * self.multiplier;
+        I512::cast_from(cps)
     }
 }
