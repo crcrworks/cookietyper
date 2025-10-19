@@ -1,5 +1,9 @@
-use crate::facilities::{Facility, FacilityKey, FacilityVisualState};
+use crate::facilities::{FacilityHandlers, FacilityStatus};
+use bnum::types::U512;
+use cookietyper_macro::Facility;
 
+#[derive(Facility)]
+#[facility(base_cost = 100, base_cps = 1.0, key = "Grandma")]
 pub(crate) struct Grandma {
     amount: u32,
     multiplier: f64,
@@ -14,28 +18,10 @@ impl Default for Grandma {
     }
 }
 
-impl Facility for Grandma {
-    fn key() -> FacilityKey {
-        FacilityKey::Grandma
-    }
-
-    fn visual_state(&self) -> FacilityVisualState {
-        FacilityVisualState::Covered
-    }
-
-    fn amount(&self) -> u32 {
-        self.amount
-    }
-
-    fn multiplier(&self) -> f64 {
-        self.multiplier
-    }
-
-    fn base_cost(&self) -> bnum::types::U512 {
-        100u32.into()
-    }
-
-    fn base_cps(&self) -> f64 {
-        1.0
+impl FacilityStatus for Grandma {
+    fn visual_state(&self) -> super::FacilityVisualState {
+        todo!()
     }
 }
+
+impl FacilityHandlers for Grandma {}

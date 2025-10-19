@@ -33,6 +33,15 @@ name = "cookietyper-core"
 version = "0.1.0"
 dependencies = [
  "bnum",
+ "cookietyper-macro",
+]
+
+[[package]]
+name = "cookietyper-macro"
+version = "0.1.0"
+dependencies = [
+ "quote",
+ "syn",
 ]
 
 [[package]]
