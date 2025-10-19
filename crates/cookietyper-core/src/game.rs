@@ -1,40 +1,30 @@
-use bnum::{
-    cast::{As, CastFrom},
-    types::{I512, U512},
-};
-
 use crate::facilities::Facilities;
 
 /// The main game state structure
 pub struct Game {
-    cpt: I512,
+    cpt: f64,
     global_multiplier: f64,
     cpt_multiplier: f64,
-    current_cookies: U512,
+    current_cookies: f64,
     facilities: Facilities,
 }
 
 impl Game {
     /// update game tick by tick
     pub fn update(&mut self) {
-        let facilities = self.facilities.displayed();
-
-        for facility in facilities {
-            facility.on_tick(&mut self.current_cookies);
-        }
+        self.facilities.update_all();
     }
 
     /// earn cookies by calculating base cps and several multipliers
     pub fn earn_cookies(&mut self) {
-        let right = self.cpt.as_::<f64>() * self.cpt_multiplier;
-        self.current_cookies += U512::cast_from(right);
+        self.current_cookies += self.cpt * self.global_multiplier * self.cpt_multiplier;
     }
 
-    pub fn current_cookies(&self) -> U512 {
+    pub fn current_cookies(&self) -> f64 {
         self.current_cookies
     }
 
-    pub fn cps(&self) -> I512 {
+    pub fn cps(&self) -> f64 {
         self.facilities.total_cps()
     }
 }
@@ -42,10 +32,10 @@ impl Game {
 impl Default for Game {
     fn default() -> Self {
         Self {
-            cpt: I512::from(1),
+            cpt: 1.0,
             global_multiplier: 1.0,
             cpt_multiplier: 1.0,
-            current_cookies: U512::from(0u32),
+            current_cookies: 0.0,
             facilities: Facilities::default(),
         }
     }

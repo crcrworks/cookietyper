@@ -3,12 +3,6 @@
 version = 4
 
 [[package]]
-name = "bnum"
-version = "0.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "119771309b95163ec7aaf79810da82f7cd0599c19722d48b9c03894dca833966"
-
-[[package]]
 name = "bumpalo"
 version = "3.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -31,18 +25,6 @@ dependencies = [
 [[package]]
 name = "cookietyper-core"
 version = "0.1.0"
-dependencies = [
- "bnum",
- "cookietyper-macro",
-]
-
-[[package]]
-name = "cookietyper-macro"
-version = "0.1.0"
-dependencies = [
- "quote",
- "syn",
-]
 
 [[package]]
 name = "flume"
