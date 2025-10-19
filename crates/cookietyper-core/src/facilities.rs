@@ -1,6 +1,6 @@
 use chrono::TimeDelta;
 use color_eyre::eyre::{self, bail};
-use lingual_number::LingNum;
+use lingual_number::LingNum as _;
 
 #[derive(PartialEq, Eq)]
 pub(crate) enum FacilityVisualState {
@@ -169,49 +169,50 @@ impl Default for Facilities {
             .base_cost(130_000.0);
         let bank = FacilityBuilder::default()
             .base_cps(1_400.0)
-            .base_cost(LingNum::new(1.4).million());
+            .base_cost(1.4 * f64::MILLION);
+
         let temple = FacilityBuilder::default()
             .base_cps(7_800.0)
-            .base_cost(LingNum::new(20.0).million());
+            .base_cost(20.0 * f64::MILLION);
         let wizard_tower = FacilityBuilder::default()
             .base_cps(44_000.0)
-            .base_cost(LingNum::new(330.0).million());
+            .base_cost(330.0 * f64::MILLION);
         let shipment = FacilityBuilder::default()
             .base_cps(260_000.0)
-            .base_cost(LingNum::new(5.1).billion());
+            .base_cost(5.1 * f64::BILLION);
         let alchemy_lab = FacilityBuilder::default()
-            .base_cps(LingNum::new(1.6).million())
-            .base_cost(LingNum::new(75.0).billion());
+            .base_cps(1.6 * f64::MILLION)
+            .base_cost(75.0 * f64::BILLION);
         let portal = FacilityBuilder::default()
-            .base_cps(LingNum::new(10.0).million())
-            .base_cost(LingNum::new(1.0).trillion());
+            .base_cps(10.0 * f64::MILLION)
+            .base_cost(1.0 * f64::TRILLION);
         let time_machine = FacilityBuilder::default()
-            .base_cps(LingNum::new(65.0).million())
-            .base_cost(LingNum::new(14.0).trillion());
+            .base_cps(65.0 * f64::MILLION)
+            .base_cost(14.0 * f64::TRILLION);
         let antimatter_condenser = FacilityBuilder::default()
-            .base_cps(LingNum::new(430.0).million())
-            .base_cost(LingNum::new(170.0).trillion());
+            .base_cps(430.0 * f64::MILLION)
+            .base_cost(170.0 * f64::TRILLION);
         let prism = FacilityBuilder::default()
-            .base_cps(LingNum::new(2.9).billion())
-            .base_cost(LingNum::new(2.1).quadrillion());
+            .base_cps(2.9 * f64::BILLION)
+            .base_cost(2.1 * f64::QUADRILLION);
         let chancemaker = FacilityBuilder::default()
-            .base_cps(LingNum::new(21.0).billion())
-            .base_cost(LingNum::new(26.0).quadrillion());
+            .base_cps(21.0 * f64::BILLION)
+            .base_cost(26.0 * f64::QUADRILLION);
         let fractal_engine = FacilityBuilder::default()
-            .base_cps(LingNum::new(150.0).billion())
-            .base_cost(LingNum::new(310.0).quadrillion());
+            .base_cps(150.0 * f64::BILLION)
+            .base_cost(310.0 * f64::QUADRILLION);
         let javascript_console = FacilityBuilder::default()
-            .base_cps(LingNum::new(1.1).trillion())
-            .base_cost(LingNum::new(71.0).quintillion());
+            .base_cps(1.1 * f64::TRILLION)
+            .base_cost(71.0 * f64::QUINTILLION);
         let idleverse = FacilityBuilder::default()
-            .base_cps(LingNum::new(8.3).trillion())
-            .base_cost(LingNum::new(12.0).sextillion());
+            .base_cps(8.3 * f64::TRILLION)
+            .base_cost(12.0 * f64::SEXTILLION);
         let cortex_baker = FacilityBuilder::default()
-            .base_cps(LingNum::new(64.0).trillion())
-            .base_cost(LingNum::new(1.9).septillion());
+            .base_cps(64.0 * f64::TRILLION)
+            .base_cost(1.9 * f64::SEPTILLION);
         let you = FacilityBuilder::default()
-            .base_cps(LingNum::new(510.0).trillion())
-            .base_cost(LingNum::new(540.0).septillion());
+            .base_cps(510.0 * f64::TRILLION)
+            .base_cost(540.0 * f64::SEPTILLION);
 
         Self {
             inner: [

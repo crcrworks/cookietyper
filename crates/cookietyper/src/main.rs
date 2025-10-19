@@ -1,4 +1,5 @@
 use cookietyper_core::Game;
+use lingual_number::LingNum;
 use std::{
     io::stdin,
     thread::{self, sleep},
@@ -37,11 +38,11 @@ fn main() {
                     }
                 }
                 Event::ShowCookiesAmount => {
-                    let current_cookies = game.current_cookies();
+                    let current_cookies = game.current_cookies().lingual_without_thousand();
                     println!("{current_cookies}");
                 }
                 Event::ShowCps => {
-                    let cps = game.cps();
+                    let cps = game.cps().lingual_without_thousand();
                     println!("{cps}");
                 }
                 Event::InvalidCommand => {
