@@ -76,6 +76,58 @@ impl FacilityBuilder {
     }
 }
 
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+pub enum FacilityKey {
+    Cursor,
+    Grandma,
+    Farm,
+    Mine,
+    Factory,
+    Bank,
+    Temple,
+    WizardTower,
+    Shipment,
+    AlchemyLab,
+    Portal,
+    TimeMachine,
+    AntimatterCondenser,
+    Prism,
+    Chancemaker,
+    FractalEngine,
+    JavascriptConsole,
+    Idleverse,
+    CortexBaker,
+    You,
+}
+
+impl FacilityKey {
+    #[inline]
+    fn to_index(self) -> usize {
+        match self {
+            FacilityKey::Cursor => 0,
+            FacilityKey::Grandma => 1,
+            FacilityKey::Farm => 2,
+            FacilityKey::Mine => 3,
+            FacilityKey::Factory => 4,
+            FacilityKey::Bank => 5,
+            FacilityKey::Temple => 6,
+            FacilityKey::WizardTower => 7,
+            FacilityKey::Shipment => 8,
+            FacilityKey::AlchemyLab => 9,
+            FacilityKey::Portal => 10,
+            FacilityKey::TimeMachine => 11,
+            FacilityKey::AntimatterCondenser => 12,
+            FacilityKey::Prism => 13,
+            FacilityKey::Chancemaker => 14,
+            FacilityKey::FractalEngine => 15,
+            FacilityKey::JavascriptConsole => 16,
+            FacilityKey::Idleverse => 17,
+            FacilityKey::CortexBaker => 18,
+            FacilityKey::You => 19,
+        }
+    }
+}
+
 pub(crate) struct Facilities {
     inner: [Facility; 20],
     multiplier: f64,
@@ -95,8 +147,12 @@ impl Facilities {
             * self.multiplier
     }
 
-    pub fn purchase(&mut self, current_cookies: &mut f64) -> eyre::Result<()> {
-        self.inner[0].purchase(current_cookies)
+    pub fn purchase(
+        &mut self,
+        current_cookies: &mut f64,
+        facility_key: FacilityKey,
+    ) -> eyre::Result<()> {
+        self.inner[facility_key.to_index()].purchase(current_cookies)
     }
 }
 

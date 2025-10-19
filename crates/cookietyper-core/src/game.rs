@@ -1,7 +1,7 @@
 use chrono::{DateTime, Local};
 use color_eyre::eyre;
 
-use crate::facilities::Facilities;
+use crate::facilities::{Facilities, FacilityKey};
 
 /// The main game state structure
 pub struct Game {
@@ -36,8 +36,9 @@ impl Game {
         self.facilities.total_cps()
     }
 
-    pub fn purchase_facility(&mut self) -> eyre::Result<()> {
-        self.facilities.purchase(&mut self.current_cookies)
+    pub fn purchase_facility(&mut self, facility_key: FacilityKey) -> eyre::Result<()> {
+        self.facilities
+            .purchase(&mut self.current_cookies, facility_key)
     }
 }
 

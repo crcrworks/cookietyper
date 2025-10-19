@@ -47,8 +47,8 @@ fn main() {
                 Event::InvalidCommand => {
                     println!("InvalidCommand");
                 }
-                Event::PurchaseFacility => {
-                    if let Err(e) = game.purchase_facility() {
+                Event::PurchaseFacility(facility_key) => {
+                    if let Err(e) = game.purchase_facility(facility_key) {
                         println!("{e}");
                     }
                 }
