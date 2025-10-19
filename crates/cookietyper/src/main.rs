@@ -1,9 +1,15 @@
 use cookietyper_core::Game;
-use std::{io::stdin, thread};
+use std::{
+    io::stdin,
+    thread::{self, sleep},
+    time::Duration,
+};
 
 mod event;
 
 use crate::event::Event;
+
+const FPS: u64 = 60;
 
 fn main() {
     let mut game = Game::default();
@@ -41,9 +47,15 @@ fn main() {
                 Event::InvalidCommand => {
                     println!("InvalidCommand");
                 }
+                Event::PurchaseFacility => {
+                    if let Err(e) = game.purchase_facility() {
+                        println!("{e}");
+                    }
+                }
             }
         }
 
         game.update();
+        sleep(Duration::from_millis((1.0 / FPS as f64 * 1000.0) as u64));
     }
 }

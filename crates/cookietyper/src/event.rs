@@ -3,6 +3,7 @@ pub(crate) enum Event {
     EarnCookies(i32),
     ShowCookiesAmount,
     ShowCps,
+    PurchaseFacility,
     InvalidCommand,
 }
 
@@ -18,6 +19,7 @@ impl From<String> for Event {
         match s {
             "/cc" => Event::ShowCookiesAmount,
             "/cps" => Event::ShowCps,
+            "/f buy" => Event::PurchaseFacility,
             _ => Event::InvalidCommand,
         }
     }

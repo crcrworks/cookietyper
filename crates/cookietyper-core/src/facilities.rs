@@ -1,3 +1,5 @@
+use chrono::TimeDelta;
+use color_eyre::eyre::{self, bail};
 use lingual_number::LingNum;
 
 #[derive(PartialEq, Eq)]
@@ -16,19 +18,33 @@ pub(crate) struct Facility {
 }
 
 impl Facility {
+    #[inline]
     fn cps(&self) -> f64 {
         self.base_cps * self.multiplier * self.amount as f64
     }
 
-    fn can_purchase(&self, current_cookies: f64) -> bool {
+    #[inline]
+    fn price(&self) -> f64 {
         const EXP_BASE: f64 = 1.15;
         const STARTER_KITS: u32 = 0;
-        EXP_BASE.powi((self.amount - STARTER_KITS) as i32) * self.base_cost <= current_cookies
+        EXP_BASE.powi((self.amount - STARTER_KITS) as i32) * self.base_cost
     }
 
-    fn purchase(&mut self, price: f64, current_cookies: &mut f64) {
-        *current_cookies -= price;
+    #[inline]
+    fn can_purchase(&self, current_cookies: f64) -> bool {
+        self.price() <= current_cookies
+    }
+
+    #[inline]
+    fn purchase(&mut self, current_cookies: &mut f64) -> eyre::Result<()> {
+        if !self.can_purchase(*current_cookies) {
+            bail!("Not enough cookies")
+        }
+
+        *current_cookies -= self.price();
         self.amount += 1;
+        self.visual_state = FacilityVisualState::Displayed;
+        Ok(())
     }
 }
 
@@ -66,7 +82,10 @@ pub(crate) struct Facilities {
 }
 
 impl Facilities {
-    pub(crate) fn update_all(&mut self) {}
+    pub(crate) fn delta_cookies(&mut self, time_delta: TimeDelta) -> f64 {
+        let duration = time_delta.num_milliseconds() as f64 * 0.001;
+        self.total_cps() * duration
+    }
 
     pub(crate) fn total_cps(&self) -> f64 {
         self.inner
@@ -74,6 +93,10 @@ impl Facilities {
             .filter(|facility| facility.visual_state == FacilityVisualState::Displayed)
             .fold(0.0, |sum, facility| sum + facility.cps())
             * self.multiplier
+    }
+
+    pub fn purchase(&mut self, current_cookies: &mut f64) -> eyre::Result<()> {
+        self.inner[0].purchase(current_cookies)
     }
 }
 
